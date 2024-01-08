@@ -18,9 +18,15 @@ class User extends Authenticatable
      * @var array<int, string>
      */
     protected $fillable = [
+        'first_name',
+        'last_name',
         'name',
         'email',
+        'type',
         'password',
+        'phone_iso2',
+        'phone_dial_code',
+        'phone_number',
     ];
 
     /**
@@ -42,4 +48,54 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
         'password' => 'hashed',
     ];
+
+    /**
+     * Checks if user is an admin.
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->type == 'admin';
+    }
+
+    /**
+     * Checks if user is an student.
+     * @return bool
+     */
+    public function isStudent(): bool
+    {
+        return $this->type == 'student';
+    }
+
+    /**
+     * Checks if user is an teacher.
+     * @return bool
+     */
+    public function isTeacher(): bool
+    {
+        return $this->type == 'teacher';
+    }
+
+    /**
+     * Checks if user is an parent.
+     * @return bool
+     */
+    public function isParent(): bool
+    {
+        return $this->type == 'parent';
+    }
+
+    /* Address relationship */
+    public function address(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(Addresses::class);
+    }
+
+    /* Short-bio relationship */
+    public function bio(): \Illuminate\Database\Eloquent\Relations\HasOne
+    {
+        return $this->hasOne(ShortBios::class);
+    }
+
+    
 }
