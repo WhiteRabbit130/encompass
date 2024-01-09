@@ -26,9 +26,47 @@ Route::get('/', function () {
     return view('welcome');
 });
 
-Route::get('/dashboard', function () {
-    return view('dashboard');
-})->middleware(['auth', 'verified'])->name('dashboard');
+/*
+ * Admin ONLY
+ * */
+Route::middleware(['auth', 'admin'])->group(function () {
+    Route::get('/admin', [AdminController::class, 'admin'])
+        ->name('admin.index');
+
+    Route::get('/all/users', [AdminController::class, 'allUsers'])
+        ->name('admin.allUsers');
+    Route::get('/all/teachers', [AdminController::class, 'allTeachers'])
+        ->name('admin.allTeachers');
+    Route::get('/all/parents', [AdminController::class, 'allParents'])
+        ->name('admin.allParents');
+    Route::get('/all/students', [AdminController::class, 'allStudents'])
+        ->name('admin.allStudents');
+
+    Route::get('/admin/dashboard', [AdminController::class, 'dashboard'])
+        ->name('admin.dashboard');
+
+    Route::get('/admin/users', [AdminController::class, 'users'])
+        ->name('admin.users.index');
+
+    Route::post('/all-users', [UserController::class, 'allUsers'])
+        ->name('user.allUsers');
+
+    Route::get('/teacher', [TeacherController::class, 'index'])
+        ->name('teacher.index');
+    Route::get('/parent', [ParentController::class, 'index'])
+        ->name('parent.index');
+    Route::get('/student', [StudentController::class, 'index'])
+        ->name('student.index');
+
+    /* ------------------------------------------------ */
+    /*  ---------------- User Routes ------------------ */
+    /*------------------------------------------------- */
+    Route::get('/users', [UserController::class, 'index'])->name('users.index');
+    Route::post('/user', [UserController::class, 'store'])->name('user.store');
+    Route::patch('/user', [UserController::class, 'update'])->name('user.update');
+    Route::delete('/user/{id}', [UserController::class, 'destroy'])->name('user.destroy');
+
+});
 
 /*
  * Authenticated Users
