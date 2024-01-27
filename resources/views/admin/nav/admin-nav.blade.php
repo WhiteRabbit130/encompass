@@ -18,7 +18,6 @@
 
 <div class="container-fluid">
 
-
     {{--Menu Button--}}
     <button class="btn btn-secondary bg-secondary px-4" type="button" data-bs-toggle="offcanvas"
             data-bs-target="#admin-menu-off-canvas" aria-controls="admin-menu-off-canvas">
