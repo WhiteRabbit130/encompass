@@ -82,7 +82,7 @@ Route::middleware('auth')->group(function () {
     Route::get('/scheduler', [SchedulerController::class, 'index'])
         ->name('scheduler.index');
     Route::post('/scheduler', [SchedulerController::class, 'store'])->name('scheduler.store');
-    
+
     Route::get('/messages', [MessagesController::class, 'index'])
         ->name('messages.index');
     Route::get('/attendance', [AttendanceController::class, 'index'])
@@ -112,6 +112,5 @@ Route::middleware('auth')->group(function () {
         return view('settings');
     })->name('settings.index');
 });
-
 
 require __DIR__.'/auth.php';
